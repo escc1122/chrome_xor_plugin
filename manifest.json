@@ -1,0 +1,15 @@
+{
+  "name": "XOR Viewer",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "contextMenus",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
