@@ -8,3 +8,25 @@ document.getElementById('fetchBtn').addEventListener('click', () => {
     }
   });
 });
+
+document.getElementById('fileBtn').addEventListener('click', () => {
+  const file = document.getElementById('fileInput').files[0];
+  if (!file) return alert('請選擇檔案');
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const bytes = new Uint8Array(reader.result);
+    const key = 168;
+    for (let i = 0; i < bytes.length; i++) {
+      bytes[i] ^= key;
+    }
+    let text = '';
+    for (let i = 0; i < bytes.length; i++) {
+      text += String.fromCharCode(bytes[i]);
+    }
+    const dataUrl = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
+    chrome.tabs.create({ url: dataUrl });
+  };
+  reader.onerror = () => alert('讀取檔案失敗');
+  reader.readAsArrayBuffer(file);
+});
