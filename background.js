@@ -28,7 +28,7 @@ function arrayBufferToBinaryString(buffer) {
 
 // 通用處理函數
 function fetchAndXOR(url) {
-  return fetch(url)
+  return fetch(url, { cache: 'no-store' })
     .then(resp => {
       if (!resp.ok) throw new Error('Fetch 失敗: ' + resp.status);
       return resp.arrayBuffer();
